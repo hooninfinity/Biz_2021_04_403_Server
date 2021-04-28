@@ -56,6 +56,7 @@ public class MainController extends HttpServlet {
 		resp.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = resp.getWriter();
 		out.println("This is Main Controller");
+		// <a href='http://localhost:8080/welcome/book'>Book 으로</a>
 		out.print("<a href='");
 		out.print("http://localhost");
 		out.print(":8080");
