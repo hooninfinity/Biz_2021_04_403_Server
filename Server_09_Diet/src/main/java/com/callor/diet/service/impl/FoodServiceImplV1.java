@@ -26,14 +26,16 @@ public class FoodServiceImplV1 implements FoodService {
 	// 조회하는 메소드에서 공통으로 사용하기 때문에 만듬
 	protected List<FoodDTO> select(PreparedStatement pStr) throws SQLException {
 
-		ResultSet rSet = pStr.executeQuery();
+		// PreparedStatement : SQL구문을 실행시키는 기능을 갖는 객체
+		// ResultSet : SELECT의 결과를 저장하는 객체
+		ResultSet rSet = pStr.executeQuery();	// executeQuery : 수행결과로 ResultSet 객체의 값을 반환, SELECT 구문을 수행할 때 사용
 		List<FoodDTO> foodList = new ArrayList<FoodDTO>();
 
 		// DBMS에서 받은 데이터가 있으면
 		while (rSet.next()) {
 
 			FoodDTO dto = new FoodDTO();
-			dto.setFd_code(rSet.getString(DBInfo.FOOD.fd_code));
+			dto.setFd_code(rSet.getString(DBInfo.FOOD.fd_code));	// getString() : 해당순서의 열에 있는 데이터를 String형으로 받아온다
 			dto.setFd_name(rSet.getString(DBInfo.FOOD.fd_name));
 			dto.setFd_year(rSet.getString(DBInfo.FOOD.fd_year));
 			dto.setFd_ccode(rSet.getString(DBInfo.FOOD.fd_ccode));
@@ -74,7 +76,7 @@ public class FoodServiceImplV1 implements FoodService {
 		
 		try {
 			pStr = dbConn.prepareStatement(sql);
-			pStr.setString(1, fd_code);
+			pStr.setString(1, fd_code);		// prepareStatement가 제공하는 setString(1, fd_code) : 첫번째 물음표의 값 지정
 			List<FoodDTO> foodList = this.select(pStr);
 			if (foodList != null && foodList.size() > 0) {
 				return foodList.get(0);
